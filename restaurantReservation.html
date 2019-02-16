@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Reservation</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1 class="text-center">Our Restaurant Express</h1>
+        <hr>
+        <h2 class="text-center">Make a reservation</h2>
+        
+        <a href="/view"><button class="btn btn-danger btn-lg text-center"><span class=""></span> View Tables</button></a>
+        <a href="/"><button class="btn btn-danger btn-lg text-center"><span class=""></span> Home</button></a>
+    </div>
+</div>
+
+<div class="container">
+    <card>
+        <div class="card-header">
+            Table Reservation
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="nameInput">Name</label>
+                    <input type="name" class="form-control" id="nameInput">
+                </div>
+                <div class="form-group">
+                    <label for="partyInput">How Many in Party</label>
+                    <input type="party" class="form-control" id="partyInput">
+                </div>
+                <div class="form-group">
+                    <label for="phoneInput">Phone Number</label>
+                    <input type="phone" class="form-control" id="phoneInput">
+                </div>
+                <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+            </form>
+            
+        </div>
+    </card>
+</div>
+
+<div class="container">
+        <a href="/api/customers">API Table Link</a>
+        | 
+        <a href="/api/waitlist">API Wait List Link</a>
+    </div>
+    
+  <script type="text/javascript">
+    $("#submit-btn").on("click", function(event) {
+      event.preventDefault();
+      var newCustomer = {
+        name: $("#nameInput").val().trim(),
+        party: $("#partyInput").val().trim(),
+        phoneNumber: $("#phoneInput").val().trim(),
+      };
+      
+      $.post("/api/customers", newCustomer)
+        .then(function(data) {
+         console.log("restaurantReservation.html", data);
+        if(data === true) {
+            alert("reservation has been added");
+        } else {
+            alert("sorry we are booked, you are on the wait list");
+        }
+          
+        });
+    });
+
+  </script>
+</body>
+
+</html>
